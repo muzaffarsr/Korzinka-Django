@@ -1,0 +1,94 @@
+{% extends 'control_base.html' %}
+
+
+{% block content %}
+  <div class="mask">
+    <div class="loader"></div>
+  </div>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'manage' %}">Korzinka</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'manage' %}">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'categorys' %}">Categorys</a>
+        </li>
+      </ul>
+      <form class="d-flex" action="{% url 'search_admin' %}" method="GET">
+        <input class="form-control me-2" name="search_admin" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<br>
+
+<!-- Main Content -->
+
+<div class="container">
+	<div class="info">
+		<div class="info-box">
+			<div class="total text-white">
+				<h1>Total Products:</h1>
+                <h1 class="count_info">{{count}}</h1>
+			</div>
+		</div>
+		<div class="info-box">
+			<div class="add_product text-white">
+				<h1>Add Product:</h1>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{form.img}} <br>
+                    {{form.name}} <br>
+                    {{form.price}} <br>
+                    {{form.category}} <br>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </form>
+			</div>
+		</div>
+	</div>
+    <br>
+
+    <!-- Products Table -->
+
+    {% if products %}
+        <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">Product Name</th>
+                  <th scope="col">Product Price</th>
+                  <th scope="col">Product Category</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in products %}
+                    <tr class="admin-table__item">
+                      <td>{{p.name}}</td>
+                      <td>{{p.price}} UZS</td>
+                      <td>{{p.category}}</td>
+                      <td><a href="{% url 'edit' p.id %}" class="btn btn-primary">Edit</a></td>
+                      <td><a href="{% url 'remove' p.id %}" class="btn btn-danger">Remove</a></td>
+                    </tr>
+                {% endfor %}
+          </tbody>
+        </table>
+    {% else %}  
+        <h1 class="text-center">No Products Yet!</h1>
+    {% endif %}
+</div>
+
+<hr>
+<footer>
+    <h6 class="footer__text text-center">&copyKorzinka 2023-2023</h6>
+</footer>
+{% endblock %}

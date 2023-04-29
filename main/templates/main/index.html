@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+	<div class="mask">
+		<div class="loader"></div>
+	</div>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  	<div class="container">
+	    	<a class="navbar-brand" href="{% url 'home' %}">Korzinka</a>
+	    	<div class="dropdown">
+				<button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+			    Categorys
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+					{% if categorys %}
+				    	<li><a class="dropdown-item" href="{% url 'home' %}">All</a></li>
+				    	{% for c in categorys %}
+				    		<li><a class="dropdown-item" href="{% url 'category' c.id %}">{{ c.name }}</a></li>
+				    	{% endfor %}
+					{% else %}
+				    	<li><a class="dropdown-item" href="{% url 'home' %}">All</a></li>
+				    {% endif %}
+				</ul>
+			</div>
+		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		      <form action="{% url 'search' %}" method="GET" class="d-flex ms-auto">
+		        <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+		        <button class="btn btn-outline-primary" type="submit">Search</button>
+		      </form>
+		    </div>
+	  	</div>
+	</nav>
+
+	<br>
+	
+	<!-- Main Content -->
+
+	<div class="container">
+		{% if products %}
+			<div class="cards">
+			{% for p in products %}
+				<div class="card">
+					<img class="product__img" src="{{ p.img }}" class="card-img-top">
+					<div class="card-body">
+					    <h5 class="card-title product__name">{{ p.name }}</h5>
+					    <p class="card-text product__price">Price: {{ p.price }} UZS</p>
+					    <a href="{% url 'product' p.id %}" class="btn btn-primary product__btn">BUY</a>
+					</div>
+				</div>
+			{% endfor %}
+			</div>
+		{% else %}
+			<h1 class="text-center">No Products Yet!</h1>
+		{% endif %}
+	</div>
+
+	<!-- Footer -->
+
+	<hr>
+	<footer>
+		<h6 class="footer__text">&copyKorzinka 2023-2023</h6>
+	</footer>
+
+{% endblock %}

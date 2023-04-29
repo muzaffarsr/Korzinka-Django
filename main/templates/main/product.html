@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{{ p.name }}{% endblock %}
+
+
+{% block content %}
+	
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  	<div class="container">
+	    	<a class="navbar-brand" href="{% url 'home' %}">Korzinka</a>
+		    <a class="ms-auto back_url" href="{% url 'home' %}">Go To Home</a>
+	  	</div>
+	</nav>
+	<br>
+	<!-- Main Content -->
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<img class="product__img" src="{{ p.img }}">
+			</div>
+			<div class="col align-center">
+				<h3>{{ p.name }}</h3>
+				<h5>Price: {{ p.price }} UZS</h5>
+				<a href="{% url 'accept' %}" class="btn btn-primary product__btn">BUY</a>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Footer -->
+
+	<hr>
+	<footer>
+		<h6 class="footer__text">&copyKorzinka 2023-2023</h6>
+	</footer>
+
+{% endblock %}

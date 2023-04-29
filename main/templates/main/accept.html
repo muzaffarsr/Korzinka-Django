@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+	
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  	<div class="container">
+	    	<a class="navbar-brand" href="{% url 'home' %}">Korzinka</a>
+		    <a class="ms-auto back_url" href="{% url 'home' %}">Go To Home</a>
+	  	</div>
+	</nav>
+
+	<br>
+
+	<!-- Main Content -->
+
+	<div class="container">
+		<input type="text" class="form-control" placeholder="Your Name">
+		<br>
+		<input type="text" class="form-control" placeholder="Your Address">
+		<br>
+		<a href="{% url 'thanks' %}" class="btn btn-primary product__btn">BUY</a>
+	</div>
+
+	<!-- Footer -->
+
+	<hr>
+	<footer>
+		<h6 class="footer__text">&copyKorzinka 2023-2023</h6>
+	</footer>
+
+{% endblock %}
